@@ -1,0 +1,7 @@
+{
+  "extends": "../../tsconfig.json",
+  "compilerOptions": {
+    "outDir": "../../dist/lambda-functions/hello"
+  },
+  "include": ["**/*.ts", "../common/**/*.ts"]
+}
