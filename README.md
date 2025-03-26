@@ -10,6 +10,8 @@ This sample application features an [Amazon API Gateway](https://aws.amazon.com/
 a REST API. The REST API includes a `/hello` endpoint integrated with an [AWS Lambda](https://aws.amazon.com/lambda/). 
 The application is managed by the [Serverless framework](https://www.serverless.com/).
 
+![](./images/aws-fis-lambda.svg)
+
 ### FIS Prerequisites
 For an AWS FIS enabled Lambda, ensure these prerequisites are in place; the sample application already includes them.
 
@@ -173,3 +175,5 @@ To run a FIS experiment, follow these steps:
   - Click on the `Experiment templates` link from the left-hand menu.
   - Select an experiment template from the list and click on the `Start experiment` button.
     - The experiment will go to `Pendin`g state first before it goes to the `Running`state. It takes a few seconds to start the experiment.
+
+![](./images/aws-fis.png)
