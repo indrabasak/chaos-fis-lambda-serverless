@@ -153,7 +153,7 @@ Execute the following command to remove the sample application:
 sls remove
 ```
 
-## Configure AWS FIS Experiment from AWS Management Console
+## AWS FIS Experiment from AWS Management Console
 To configure an AWS FIS experiment, you need to create an experiment template. To create an experiment template from the
 AWS Console, follow these steps:
   - Log in to the AWS Account.
@@ -178,7 +178,7 @@ To run a FIS experiment, follow these steps:
 
 ![](./images/aws-fis.png)
 
-## Configure AWS FIS Experiment from AWS CLI
+## AWS FIS Experiment from AWS CLI
 The AWS Command Line Interface (CLI) provides commands for AWS FIS. We will use the CLI to create experiment templates and then run it
 
 ```
