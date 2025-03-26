@@ -611,3 +611,15 @@ FodyWeavers.xsd
 
 !/aws-comm-login.sh
 !/dist/
+!/aws-comm-login.sh
+!/dist/
+/dist/lambda-functions/hello/hello/index.js
+/dist/lambda-functions/hello/common/logger.js
+/dist/lambda-functions/layer/nodejs/package.json
+/dist/lambda-functions/hello/common/app-logger.js
+/chaos-fis-lambda-serverless/.gitignore
+/.idea/.gitignore
+/aws-comm-login.sh
+/.idea/inspectionProfiles/Project_Default.xml
+/.idea/misc.xml
+/.idea/modules.xml

@@ -11,7 +11,7 @@ on how to enable FIS in a lambda application.
 ## Sample Application
 This sample application features an [Amazon API Gateway](https://aws.amazon.com/api-gateway/) as the entry point to 
 a REST API. The REST API includes a `/hello` endpoint integrated with an [AWS Lambda](https://aws.amazon.com/lambda/). 
-The application is managed by the [Serverless framework]((https://www.serverless.com/).
+The application is managed by the [Serverless framework](https://www.serverless.com/).
 
 ## Prerequisites
 Before exploring the sample applications, please make sure your computer is properly set up with the required tools.

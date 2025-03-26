@@ -1,0 +1,49 @@
+Resources:
+  FisRole:
+    Type: AWS::IAM::Role
+    Properties:
+      RoleName: !Sub '${self:service}-fis-${AWS::Region}'
+      AssumeRolePolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+          - Effect: Allow
+            Principal:
+              Service:
+                - fis.amazonaws.com
+            Action: sts:AssumeRole
+
+  FisIamPolicy:
+    Type: AWS::IAM::ManagedPolicy
+    Properties:
+      Roles:
+        - !Ref FisRole
+      PolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+          - Sid: AllowFisToWriteAndDeleteFaultConfigurations
+            Effect: Allow
+            Action:
+              - s3:PutObject
+              - s3:DeleteObject
+            Resource: !Sub 'arn:aws:s3:::${self:service}-config-${AWS::Region}-${AWS::AccountId}/FisConfigs/*'
+          - Sid: AllowFisToInspectLambdaFunctions
+            Effect: Allow
+            Action:
+              - lambda:GetFunction
+            Resource: '*'
+          - Sid: AllowFisToDoTagLookups
+            Effect: Allow
+            Action:
+              - tag:GetResources
+            Resource: '*'
+          - Sid: AllowLog
+            Effect: Allow
+            Action:
+              - logs:CreateLogGroup
+              - logs:CreateLogStream
+              - logs:PutLogEvents
+              - logs:CreateLogDelivery
+              - logs:PutResourcePolicy
+              - logs:DescribeResourcePolicies
+              - logs:DescribeLogGroups
+            Resource: '*'
