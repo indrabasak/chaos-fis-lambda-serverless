@@ -153,7 +153,7 @@ Execute the following command to remove the sample application:
 sls remove
 ```
 
-## Configure AWS FIS Experiment
+## Configure AWS FIS Experiment from AWS Management Console
 To configure an AWS FIS experiment, you need to create an experiment template. To create an experiment template from the
 AWS Console, follow these steps:
   - Log in to the AWS Account.
@@ -168,7 +168,7 @@ AWS Console, follow these steps:
     - `aws:lambda:invocation-http-integration-response`: Injects an HTTP integration response into the invocation. 
       You can choose the response to return any HTTP status code, e.g., 500.
 
-## Execute AWS FIS Experiment
+### Execute AWS FIS Experiment
 To run a FIS experiment, follow these steps:
   - Log in to the AWS Account.
   - Navigate to the `AWS FIS` service.
@@ -177,3 +177,92 @@ To run a FIS experiment, follow these steps:
     - The experiment will go to `Pendin`g state first before it goes to the `Running`state. It takes a few seconds to start the experiment.
 
 ![](./images/aws-fis.png)
+
+## Configure AWS FIS Experiment from AWS CLI
+The AWS Command Line Interface (CLI) provides commands for AWS FIS. We will use the CLI to create experiment templates and then run it
+
+```
+aws fis create-experiment-template --cli-input-json file://./experiments/exp-integration-rsp.json
+```
+
+You should have a similar output, 
+```
+{
+    "experimentTemplate": {
+        "id": "EXTAdYntpx3iQhkMW",
+        "arn": "arn:aws:fis:us-east-1:875157441906:experiment-template/EXTAdYntpx3iQhkMW",
+        "description": "exp-integration-rsp",
+        "targets": {
+            "Functions-Target-1": {
+                "resourceType": "aws:lambda:function",
+                "resourceArns": [
+                    "arn:aws:lambda:us-east-1:875157441906:function:chaos-fis-lambda-serverless-hello"
+                ],
+                "selectionMode": "ALL"
+            }
+        },
+        "actions": {
+            "exp-integration-rsp": {
+                "actionId": "aws:lambda:invocation-http-integration-response",
+                "description": "exp-integration-rsp",
+                "parameters": {
+                    "contentTypeHeader": "text/plain",
+                    "duration": "PT5M",
+                    "invocationPercentage": "100",
+                    "preventExecution": "true",
+                    "statusCode": "500"
+                },
+                "targets": {
+                    "Functions": "Functions-Target-1"
+                }
+            }
+        },
+        "stopConditions": [
+            {
+                "source": "none"
+            }
+        ],
+        "creationTime": "2025-03-26T15:56:01.326000-07:00",
+        "lastUpdateTime": "2025-03-26T15:56:01.326000-07:00",
+        "roleArn": "arn:aws:iam::875157441906:role/chaos-fis-lambda-serverless-fis-us-east-1",
+        "tags": {
+            "Name": "exp-integration-rsp"
+        },
+        "experimentOptions": {
+            "accountTargeting": "single-account",
+            "emptyTargetResolutionMode": "fail"
+        }
+    }
+}
+```
+
+To list all experiments,
+```q
+aws fis list-experiments
+```
+
+You need the experiment ID to start an experiment,
+```
+aws fis start-experiment 
+```
+
+To list the experiment status,
+
+```
+aws fis list-experiments --experiment-template-id EXTAdYntpx3iQhkMW
+```
+
+It should show the status of the experiment,
+```
+{
+    "experiments": [
+        {
+            "id": "EXPYZTA6seD4Yv8ksU",
+            "arn": "arn:aws:fis:us-east-1:875157441906:experiment/EXPYZTA6seD4Yv8ksU",
+            "experimentTemplateId": "EXTAdYntpx3iQhkMW",
+            "state": {
+                "status": "running",
+                "reason": "Experiment is running."
+            },
+...
+```

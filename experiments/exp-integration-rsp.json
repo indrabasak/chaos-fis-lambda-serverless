@@ -1,0 +1,41 @@
+{
+  "description": "exp-integration-rsp",
+  "targets": {
+    "Functions-Target-1": {
+      "resourceType": "aws:lambda:function",
+      "resourceArns": [
+        "arn:aws:lambda:us-east-1:875157441906:function:chaos-fis-lambda-serverless-hello"
+      ],
+      "selectionMode": "ALL"
+    }
+  },
+  "actions": {
+    "exp-integration-rsp": {
+      "actionId": "aws:lambda:invocation-http-integration-response",
+      "description": "exp-integration-rsp",
+      "parameters": {
+        "contentTypeHeader": "text/plain",
+        "duration": "PT5M",
+        "invocationPercentage": "100",
+        "preventExecution": "true",
+        "statusCode": "500"
+      },
+      "targets": {
+        "Functions": "Functions-Target-1"
+      }
+    }
+  },
+  "stopConditions": [
+    {
+      "source": "none"
+    }
+  ],
+  "roleArn": "arn:aws:iam::875157441906:role/chaos-fis-lambda-serverless-fis-us-east-1",
+  "tags": {
+    "Name": "exp-integration-rsp"
+  },
+  "experimentOptions": {
+    "accountTargeting": "single-account",
+    "emptyTargetResolutionMode": "fail"
+  }
+}
